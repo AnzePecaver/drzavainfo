@@ -1,0 +1,59 @@
+<h2>Seznam držav</h2>
+
+<app-error-message *ngIf="error; else countryDetails" [errorMessage]="error"></app-error-message>
+
+<ng-template #countryDetails>
+    <div class="country-details-container" *ngIf="selectedCountryId">
+        <app-country [country]="selectedCountry" *ngIf="selectedCountry; else countryDetailsLoading"></app-country>
+    
+        <ng-template #countryDetailsLoading><p >Nalaganje podatkov o državi ...</p></ng-template>
+    </div>
+    
+    <p *ngIf="!selectedCountry && !selectedCountryId">Na spodnjem seznamu izberite poljubno državo in se bodo tu prikazale podrobnosti.</p><br>
+</ng-template>
+
+
+<div *ngIf="sortedCountries.length > 0; else loading" class="table-container">
+    <table class="countries-table">
+        <thead>
+        <tr>
+            <th (click)="sortBy('id')">
+            ID
+            <span *ngIf="currentSortColumn === 'id'">
+                {{ isAscending ? '↑' : '↓' }}
+            </span>
+            </th>
+            <th (click)="sortBy('name')">
+                Ime
+                <span *ngIf="currentSortColumn === 'name'">
+                    {{ isAscending ? '↑' : '↓' }}
+                </span>
+            </th>
+            <th (click)="sortBy('alpha2')">
+            Alpha2
+            <span *ngIf="currentSortColumn === 'alpha2'">
+                {{ isAscending ? '↑' : '↓' }}
+            </span>
+            </th>
+            <th (click)="sortBy('alpha3')">
+            Alpha3
+            <span *ngIf="currentSortColumn === 'alpha3'">
+                {{ isAscending ? '↑' : '↓' }}
+            </span>
+            </th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let country of sortedCountries" (click)="selectCountry(country)" [ngClass]="{'border': country.id === selectedCountryId}">
+            <td>{{ country.id }}</td>
+            <td>{{ country.name }}</td>
+            <td>{{ country.alpha2 }}</td>
+            <td>{{ country.alpha3 }}</td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+<ng-template #loading>
+<p>Nalaganje seznama ...</p>
+</ng-template>

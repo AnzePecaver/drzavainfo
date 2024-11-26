@@ -1,0 +1,23 @@
+.col-3 {
+    display: grid;
+    grid-template-columns: repeat(3, auto);
+}
+
+@media screen and (max-width: 600px) {
+    .col-3 {
+        grid-template-columns: repeat(2, auto)
+    }
+}
+
+.flag-name-container {
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    gap: 0.5rem;
+    height: 4rem;
+    margin-bottom: 0.75rem;
+}
+
+.country-details {
+    animation: fade-in 0.25s ease;
+}

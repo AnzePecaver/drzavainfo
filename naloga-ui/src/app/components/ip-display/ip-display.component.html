@@ -1,0 +1,13 @@
+
+<h2>Informacije o IP</h2>
+
+<div class="p-medium">
+    <app-error-message *ngIf="error; else shown" errorMessage="{{error}}"></app-error-message>
+
+    <ng-template #shown>
+        <div>
+            <p><strong>IP naslov:</strong> {{ ipInfo ? ipInfo.ip : "Nalaganje ..." }}</p>
+            <p><strong>Čas pridobitve:</strong> {{ ipInfo ? ipInfo.timestamp : "Nalaganje ..." }}</p>
+        </div>
+    </ng-template>
+</div>  

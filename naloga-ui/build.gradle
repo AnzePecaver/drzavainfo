@@ -1,0 +1,23 @@
+plugins {
+  id 'java'
+  id "com.github.node-gradle.node" version "3.5.1"
+}
+
+node {
+  version = '20.12.2'
+  npmVersion = '10.5.0'
+  download = true
+}
+
+
+//replace  the variable env in '--configuration='
+tasks.register('buildAngular', NpmTask) {
+  args = ['run', 'build']
+}
+
+jar.dependsOn buildAngular
+
+
+jar {
+  from 'dist/naloga-ui' into 'static'
+}

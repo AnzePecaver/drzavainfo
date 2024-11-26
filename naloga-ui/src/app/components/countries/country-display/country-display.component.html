@@ -1,0 +1,17 @@
+<div *ngIf="country" class="country-details">
+<div class="flag-name-container">
+    <img [src]="country.flags.png" alt="Flag of {{ country.name.common }}" width="100" />
+    <h3>{{ country.name.common }} ({{ country.name.official }})</h3>
+</div>
+<div class="col-3">
+    <p><strong>Glavno mesto:</strong> {{ country.capital.join(', ') }}</p>
+    <p><strong>Regija:</strong> {{ country.region }}</p>
+    <p><strong>Območje:</strong> {{ country.area | number }} km²</p>
+    <p><strong>Populacija:</strong> {{ country.population | number }}</p>
+    
+    <p><strong>Jeziki: </strong> <span *ngFor="let lang of (country.languages | keyvalue); let i = index"><ng-container *ngIf="i > 0">,</ng-container> {{ lang.value }}</span></p>
+    <p><strong>Valute: </strong> <span *ngFor="let currency of (country.currencies | keyvalue); let i = index"><ng-container *ngIf="i > 0">,</ng-container>{{ currency.value.name}} ({{ currency.value.symbol }}) </span></p>
+    
+</div>
+</div>
+  

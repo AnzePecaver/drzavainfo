@@ -1,0 +1,4 @@
+server:
+  servlet:
+    context-path: /naloga
+  port: 8080

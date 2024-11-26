@@ -1,0 +1,45 @@
+plugins {
+    id 'java'
+    id 'io.spring.dependency-management' version "$springDependencyVersion" apply false
+    id 'io.freefair.lombok' version "$lombokPluginVersion" apply false
+}
+
+subprojects {
+	apply plugin: 'java'
+    apply plugin: 'io.spring.dependency-management'
+    apply plugin: 'io.freefair.lombok'
+
+    repositories {
+        mavenCentral()
+    }
+
+    java.toolchain.languageVersion = JavaLanguageVersion.of(17)
+
+    dependencyManagement {
+        imports {
+            mavenBom "org.springframework.boot:spring-boot-dependencies:$springBootVersion"
+        }
+    }
+
+    dependencies {
+        implementation 'org.springframework.boot:spring-boot-starter-log4j2'
+        implementation 'org.apache.logging.log4j:log4j-spring-boot'
+
+        testImplementation 'org.junit.jupiter:junit-jupiter'
+        testImplementation 'org.junit.platform:junit-platform-launcher'
+        testImplementation 'org.slf4j:slf4j-simple'
+    }
+
+    configurations.configureEach {
+        exclude group: "commons-logging", module: "commons-logging"
+        exclude group: "org.springframework.boot", module: "spring-boot-starter-logging"
+    }
+
+    tasks.withType(JavaCompile).configureEach {
+        options.compilerArgs << '-parameters'
+    }
+
+    tasks.named('test') {
+        useJUnitPlatform()
+    }
+}
